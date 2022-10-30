@@ -72,7 +72,7 @@
             <h3>Configurações</h3>
           </a>
 
-          <a href="#">
+          <a href="addProduto.php">
             <span class="material-icons-sharp">add</span>
             <h3>Adicionar Produto</h3>
           </a>
