@@ -217,6 +217,7 @@ aside .sidebar .message-count{
   font-size: 1.7rem;
   padding: 1rem 3rem;
   background: var(--color-primary);
+  text-align: center;
   color: var(--color-white);
   text-transform: none;
   transition: all 0.3s ease;
@@ -224,6 +225,13 @@ aside .sidebar .message-count{
 
 .btn:hover{
   background: black;
+}
+
+.admin-product-form-container.centered{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
 }
 
 .admin-product-form-container .message{
@@ -237,7 +245,7 @@ aside .sidebar .message-count{
 }
 
 .product-container{
-  max-width: 1200px;
+  max-width: 50rem;
   padding: 2rem;
   margin: 0 auto;
 }
