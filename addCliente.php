@@ -72,7 +72,7 @@ if (isset($_GET['delete'])) {
           <h3>Dashboard</h3>
         </a>
 
-        <a href="addCliente.php" class="active">
+        <a href="addCliente.php">
           <span class="material-icons-sharp">person_outline</span>
           <h3>Clientes</h3>
         </a>
@@ -99,28 +99,26 @@ if (isset($_GET['delete'])) {
         </a>
 
         <a href="addFornecedor.php">
-          <span class="material-icons-sharp">
-            local_shipping
-          </span>
+          <span class="material-icons-sharp">local_shipping</span>
           <h3>Fornecedores</h3>
         </a>
 
-        <a href="addCategoria.php">
+        <a href="addCategoria.php" class="active">
           <span class="material-icons-sharp">
             category
           </span>
           <h3>Categorias</h3>
         </a>
 
-        <a href="#">
+        <a href="gerarRelatorio.php">
           <span class="material-icons-sharp">report_gmailerrorred</span>
           <h3>Relatórios</h3>
         </a>
 
-        <a href="#">
+        <!-- <a href="#">
           <span class="material-icons-sharp">settings</span>
           <h3>Configurações</h3>
-        </a>
+        </a> -->
 
         <a href="login.html">
           <span class="material-icons-sharp">logout</span>
@@ -128,6 +126,7 @@ if (isset($_GET['delete'])) {
         </a>
       </div>
     </aside>
+
     <div class="admin-product-form-container">
       <?php
       if (isset($message)) {

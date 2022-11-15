@@ -30,7 +30,7 @@
       </div>
 
       <div class="sidebar">
-        <a href="dashboard.php" class="active">
+        <a href="dashboard.php">
           <span class="material-icons-sharp">grid_view</span>
           <h3>Dashboard</h3>
         </a>
@@ -40,7 +40,7 @@
           <h3>Clientes</h3>
         </a>
 
-        <a href="#">
+        <a href="addPedido.php">
           <span class="material-icons-sharp">receipt_long</span>
           <h3>Pedidos</h3>
         </a>
@@ -62,35 +62,28 @@
         </a>
 
         <a href="addFornecedor.php">
-          <span class="material-icons-sharp">
-            local_shipping
-          </span>
+          <span class="material-icons-sharp">local_shipping</span>
           <h3>Fornecedores</h3>
         </a>
 
-        <a href="addCategoria.php">
+        <a href="addCategoria.php" class="active">
           <span class="material-icons-sharp">
             category
           </span>
           <h3>Categorias</h3>
         </a>
 
-        <a href="#">
+        <a href="gerarRelatorio.php">
           <span class="material-icons-sharp">report_gmailerrorred</span>
           <h3>Relatórios</h3>
         </a>
 
-        <a href="#">
+        <!-- <a href="#">
           <span class="material-icons-sharp">settings</span>
           <h3>Configurações</h3>
-        </a>
-
-        <!-- <a href="addProduto.php">
-          <span class="material-icons-sharp">add</span>
-          <h3>Adicionar Produto</h3>
         </a> -->
 
-        <a href="#">
+        <a href="login.html">
           <span class="material-icons-sharp">logout</span>
           <h3>Sair</h3>
         </a>
