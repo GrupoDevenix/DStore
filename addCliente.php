@@ -2,27 +2,33 @@
 @include 'config.php';
 
 
-if (isset($_POST['add_supplier'])) {
-  $supplier_name = $_POST['supplier_name'];
+if (isset($_POST['add_client'])) {
+  $client_email = $_POST['client_email'];
+  $client_name = $_POST['client_name'];
+  $client_address = $_POST['client_address'];
+  $client_number = $_POST['client_number'];
+  $client_cep = $_POST['client_cep'];
+  $client_district = $_POST['client_district'];
+  $client_city = $_POST['client_city'];
 
-  if (empty($supplier_name)) {
+  if (empty($client_email) || empty($client_name) || empty($client_address) || empty($client_number) || empty($client_cep) || empty($client_district) || empty($client_city)) {
     $message[] = 'Preencha todos os campos!';
   } else {
-    $insert = "INSERT INTO fornecedor(descricaoFornecedor) VALUES('$supplier_name')";
+    $insert = "INSERT INTO cliente(emailCliente, nomeCliente, logradouro, numero, cep, bairro, cidade) VALUES('$client_email', '$client_name', '$client_address', '$client_number', '$client_cep', '$client_district', '$client_city')";
 
     $upload = mysqli_query($conn, $insert);
     if ($upload) {
-      $message[] = 'Fornecedor cadastrado com sucesso!';
+      $message[] = 'Cliente cadastrado com sucesso!';
     } else {
-      $message[] = 'O fornecedor não pôde ser cadastrado!';
+      $message[] = 'O cliente não pôde ser cadastrado!';
     }
   }
 };
 
 if (isset($_GET['delete'])) {
   $id = $_GET['delete'];
-  mysqli_query($conn, "DELETE FROM fornecedor WHERE idFornecedor = $id");
-  header('location:addFornecedor.php');
+  mysqli_query($conn, "DELETE FROM cliente WHERE idCliente = $id");
+  header('location:addCliente.php');
 };
 
 ?>
@@ -44,7 +50,7 @@ if (isset($_GET['delete'])) {
   <!-- FONT AWESOME -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
 
-  <title>Adicionar Fornecedor</title>
+  <title>Adicionar Cliente</title>
 </head>
 
 <body>
@@ -66,12 +72,12 @@ if (isset($_GET['delete'])) {
           <h3>Dashboard</h3>
         </a>
 
-        <a href="#">
+        <a href="addCliente.php" class="active">
           <span class="material-icons-sharp">person_outline</span>
           <h3>Clientes</h3>
         </a>
 
-        <a href="#">
+        <a href="addPedido.php">
           <span class="material-icons-sharp">receipt_long</span>
           <h3>Pedidos</h3>
         </a>
@@ -92,7 +98,7 @@ if (isset($_GET['delete'])) {
           <h3>Produtos</h3>
         </a>
 
-        <a href="addFornecedor.php" class="active">
+        <a href="addFornecedor.php">
           <span class="material-icons-sharp">
             local_shipping
           </span>
@@ -131,15 +137,27 @@ if (isset($_GET['delete'])) {
       }
       ?>
       <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post" enctype="multipart/form-data">
-        <h2>Adicionar novo fornecedor</h2>
-        <input type="text" placeholder="Digite o nome do fornecedor" name="supplier_name" class="box" />
+        <h2>Adicionar novo cliente</h2>
+        <input type="email" placeholder="Digite o email do cliente" name="client_email" class="box" />
 
-        <input type="submit" class="btn" name="add_supplier" value="Adicionar Fornecedor" />
+        <input type="text" placeholder="Digite o nome do cliente" name="client_name" class="box" />
+
+        <input type="text" placeholder="Digite o CEP" name="client_cep" class="box" />
+
+        <input type="text" placeholder="Digite o endereço" name="client_address" class="box" />
+
+        <input type="text" placeholder="Digite o número" name="client_number" class="box" />
+
+        <input type="text" placeholder="Digite o bairro" name="client_district" class="box" />
+
+        <input type="text" placeholder="Digite o cidade" name="client_city" class="box" />
+
+        <input type="submit" class="btn" name="add_client" value="Adicionar Cliente" />
       </form>
     </div>
 
     <?php
-    $select = mysqli_query($conn, "SELECT * FROM fornecedor");
+    $select = mysqli_query($conn, "SELECT * FROM cliente");
     ?>
 
   </div>
@@ -149,16 +167,28 @@ if (isset($_GET['delete'])) {
       <table class="product-display-table">
         <thead>
           <tr>
+            <th>Email</th>
             <th>Nome</th>
+            <th>Endereço</th>
+            <th>Número</th>
+            <th>CEP</th>
+            <th>Bairro</th>
+            <th>Cidade</th>
           </tr>
         </thead>
 
         <?php while ($row = mysqli_fetch_assoc($select)) { ?>
           <tr>
-            <td><?php echo $row['descricaoFornecedor']; ?></td>
+            <td><?php echo $row['emailCliente']; ?></td>
+            <td><?php echo $row['nomeCliente']; ?></td>
+            <td><?php echo $row['logradouro']; ?></td>
+            <td><?php echo $row['numero']; ?></td>
+            <td><?php echo $row['cep']; ?></td>
+            <td><?php echo $row['bairro']; ?></td>
+            <td><?php echo $row['cidade']; ?></td>
             <td>
-              <a href="editarFornecedor.php?edit=<?php echo $row['idFornecedor']; ?>" class="btn"> <i class="fas fa-edit"> edit </i> </a>
-              <a href="addFornecedor.php?delete=<?php echo $row['idFornecedor']; ?>" class="btn"> <i class="fas fa-trash"> delete </i> </a>
+              <a href="editarCliente.php?edit=<?php echo $row['idCliente']; ?>" class="btn"> <i class="fas fa-edit"> edit </i> </a>
+              <a href="addCliente.php?delete=<?php echo $row['idCliente']; ?>" class="btn"> <i class="fas fa-trash"> delete </i> </a>
             </td>
           </tr>
         <?php }; ?>

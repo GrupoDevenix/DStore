@@ -87,14 +87,21 @@ if (isset($_POST['update_supplier'])) {
           <span class="message-count">26</span>
         </a> -->
 
-        <a href="addProduto.php" class="active">
+        <a href="addProduto.php">
           <span class="material-icons-sharp">inventory</span>
           <h3>Produtos</h3>
         </a>
 
-        <a href="addFornecedor.php">
+        <a href="addFornecedor.php" class="active">
           <span class="material-icons-sharp">local_shipping</span>
           <h3>Fornecedores</h3>
+        </a>
+
+        <a href="addCategoria.php">
+          <span class="material-icons-sharp">
+            category
+          </span>
+          <h3>Categorias</h3>
         </a>
 
         <a href="#">

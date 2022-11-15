@@ -3,28 +3,24 @@
 
 $id = $_GET['edit'];
 
-if (isset($_POST['update_product'])) {
-  $product_name = $_POST['product_name'];
-  $product_description = $_POST['product_description'];
-  $product_price = $_POST['product_price'];
-  $product_supplier = $_POST['product_supplier'];
-  $product_category = $_POST['product_category'];
-  $product_qtde = $_POST['product_qtde'];
-  $product_image = $_FILES['product_image']['name'];
-  $product_image_tmp_name = $_FILES['product_image']['tmp_name'];
-  $product_image_folder = 'assets/images/' . $product_image;
+if (isset($_POST['update_client'])) {
+  $client_email = $_POST['client_email'];
+  $client_name = $_POST['client_name'];
+  $client_address = $_POST['client_address'];
+  $client_number = $_POST['client_number'];
+  $client_cep = $_POST['client_cep'];
+  $client_district = $_POST['client_district'];
+  $client_city = $_POST['client_city'];
 
-  if (empty($product_name) || empty($product_description) || empty($product_price) || empty($product_supplier) || empty($product_category) || empty($product_qtde) || empty($product_image)) {
+  if (empty($client_email) || empty($client_name) || empty($client_address) || empty($client_number) || empty($client_cep) || empty($client_district) || empty($client_city)) {
     $message[] = 'Preencha todos os campos!';
   } else {
-    // $innerJoinCategoria = "SELECT descricaoCategoria FROM produto p INNER JOIN categoria c ON p.idCategoria = c.idCategoria";
-    $update = "UPDATE produto SET nomeProduto = '$product_name', descricaoProduto = '$product_description', precoProduto = '$product_price', idFornecedor = '$product_supplier', idCategoria = '$product_category', qtdeProduto = '$product_qtde', imagemProduto = '$product_image' WHERE idProduto = $id";
+    $update = "UPDATE cliente SET emailCliente = '$client_email', nomeCliente = '$client_name', logradouro = '$client_address', numero = '$client_number', cep = '$client_cep', bairro = '$client_district', cidade = '$client_city' WHERE idCliente = $id";
 
     $upload = mysqli_query($conn, $update);
+
     if ($upload) {
-      move_uploaded_file($product_image_tmp_name, $product_image_folder);
-    } else {
-      $message[] = 'O produto não pôde ser adicionado!';
+      $message[] = 'Cliente atualizado com sucesso!';
     }
   }
 };
@@ -47,7 +43,7 @@ if (isset($_POST['update_product'])) {
   <!-- FONT AWESOME -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
 
-  <title>Editar Produto</title>
+  <title>Editar Cliente</title>
 </head>
 
 <body>
@@ -76,7 +72,7 @@ if (isset($_POST['update_product'])) {
           <h3>Dashboard</h3>
         </a>
 
-        <a href="#">
+        <a href="addCliente.php" class="active">
           <span class="material-icons-sharp">person_outline</span>
           <h3>Clientes</h3>
         </a>
@@ -97,7 +93,7 @@ if (isset($_POST['update_product'])) {
           <span class="message-count">26</span>
         </a> -->
 
-        <a href="addProduto.php" class="active">
+        <a href="addProduto.php">
           <span class="material-icons-sharp">inventory</span>
           <h3>Produtos</h3>
         </a>
@@ -107,7 +103,7 @@ if (isset($_POST['update_product'])) {
           <h3>Fornecedores</h3>
         </a>
 
-        <a href="addCategoria.php" class="active">
+        <a href="addCategoria.php">
           <span class="material-icons-sharp">
             category
           </span>
@@ -133,33 +129,29 @@ if (isset($_POST['update_product'])) {
 
     <div class="admin-product-form-container centered">
       <?php
-      $select = mysqli_query($conn, "SELECT * FROM produto WHERE id = $id");
+      $select = mysqli_query($conn, "SELECT * FROM cliente WHERE idCliente = $id");
       while ($row = mysqli_fetch_assoc($select)) {
-
       ?>
 
         <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post" enctype="multipart/form-data">
-          <h2>Atualizar produto</h2>
-          <input type="text" placeholder="Digite o nome do produto" name="product_name" value="<?php echo $row['nomeProduto'] ?>" class="box" />
+          <h2>Atualizar cliente</h2>
+          <input type="email" placeholder="Digite o email do cliente" name="client_email" value="<?php echo $row['emailCliente'] ?>" class="box" />
 
-          <textarea name="product_description" placeholder="Descreva o produto" value="<?php echo $row['descricaoProduto'] ?>" cols="20" rows="5" class="box"></textarea>
+          <input type="text" placeholder="Digite o nome do cliente" name="client_name" value="<?php echo $row['nomeCliente'] ?>" class="box" />
 
-          <input type="number" placeholder="Digite o valor" name="product_price" value="<?php echo $row['precoProduto'] ?>" class="box" />
-          <select name="product_supplier" value="<?php echo $row['idFornecedor'] ?>" class="box">
-            <option>Selecione o fornecedor</option>
-          </select>
+          <input type="text" placeholder="Digite o CEP" name="client_cep" value="<?php echo $row['cep'] ?>" class="box" />
 
-          <select name="product_category" value="<?php echo $row['idCategoria'] ?>" class="box">
-            <option value="product_category">Selecione a categoria</option>
-          </select>
+          <input type="text" placeholder="Digite o endereço" name="client_address" value="<?php echo $row['logradouro'] ?>" class="box" />
 
-          <input type="number" placeholder="Digite a quantidade" name="product_qtde" value="<?php echo $row['qtdeProduto'] ?>" class="box" />
+          <input type="text" placeholder="Digite o número" name="client_number" value="<?php echo $row['numero'] ?>" class="box" />
 
-          <input type="file" accept="image/png, image/jpeg, image/jpg" name="product_image" value="<?php echo $row['imagemProduto'] ?>" class="box" />
+          <input type="text" placeholder="Digite o bairro" name="client_district" value="<?php echo $row['bairro'] ?>" class="box" />
 
-          <input type="submit" class="btn" name="update_product" value="Atualizar Produto" />
+          <input type="text" placeholder="Digite o cidade" name="client_city" value="<?php echo $row['cidade'] ?>" class="box" />
 
-          <a href="addProduto.php" class="btn">Voltar</a>
+          <input type="submit" class="btn" name="update_client" value="Atualizar Cliente" />
+
+          <a href="addCliente.php" class="btn">Voltar</a>
         </form>
       <?php }; ?>
     </div>

@@ -71,12 +71,12 @@ if (isset($_GET['delete'])) {
       </div>
 
       <div class="sidebar">
-        <a href="index.php">
+        <a href="dashboard.php">
           <span class="material-icons-sharp">grid_view</span>
           <h3>Dashboard</h3>
         </a>
 
-        <a href="#">
+        <a href="addCliente.php">
           <span class="material-icons-sharp">person_outline</span>
           <h3>Clientes</h3>
         </a>
@@ -107,6 +107,13 @@ if (isset($_GET['delete'])) {
             local_shipping
           </span>
           <h3>Fornecedores</h3>
+        </a>
+
+        <a href="addCategoria.php">
+          <span class="material-icons-sharp">
+            category
+          </span>
+          <h3>Categorias</h3>
         </a>
 
         <a href="#">
@@ -142,16 +149,21 @@ if (isset($_GET['delete'])) {
         <input type="number" placeholder="Digite o valor" name="product_price" class="box" />
 
         <?php
-        $selectFornecedor = mysqli_query($conn, "SELECT descricaoFornecedor FROM fornecedor");
+        $selectFornecedor = mysqli_query($conn, "SELECT f.* FROM fornecedor f /*INNER JOIN produto p ON f.idFornecedor = p.idFornecedor*/");
+        $selectCategoria = mysqli_query($conn, "SELECT c.* FROM categoria c /*INNER JOIN produto p ON c.idCategoria = p.idCategoria*/");
         ?>
         <select name="product_supplier" class="box">
+          <option selected>Selecione o fornecedor</option>
           <?php while ($row = mysqli_fetch_assoc($selectFornecedor)) { ?>
-            <option><?php echo $row['descricaoFornecedor']; ?></option>
+            <option value="product_supplier"><?php echo $row['descricaoFornecedor']; ?></option>
           <?php }; ?>
         </select>
 
         <select name="product_category" class="box">
-          <option value="product_category">Selecione a categoria</option>
+          <option selected>Selecione a categoria</option>
+          <?php while ($row = mysqli_fetch_assoc($selectCategoria)) { ?>
+            <option value="product_category"><?php echo $row['descricaoCategoria']; ?></option>
+          <?php }; ?>
         </select>
 
         <input type="number" placeholder="Digite a quantidade" name="product_qtde" class="box" />

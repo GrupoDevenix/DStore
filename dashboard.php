@@ -35,7 +35,7 @@
           <h3>Dashboard</h3>
         </a>
 
-        <a href="#">
+        <a href="addCliente.php">
           <span class="material-icons-sharp">person_outline</span>
           <h3>Clientes</h3>
         </a>
@@ -66,6 +66,13 @@
             local_shipping
           </span>
           <h3>Fornecedores</h3>
+        </a>
+
+        <a href="addCategoria.php">
+          <span class="material-icons-sharp">
+            category
+          </span>
+          <h3>Categorias</h3>
         </a>
 
         <a href="#">

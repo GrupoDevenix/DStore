@@ -2,27 +2,27 @@
 @include 'config.php';
 
 
-if (isset($_POST['add_supplier'])) {
-  $supplier_name = $_POST['supplier_name'];
+if (isset($_POST['add_category'])) {
+  $category_name = $_POST['category_name'];
 
-  if (empty($supplier_name)) {
+  if (empty($category_name)) {
     $message[] = 'Preencha todos os campos!';
   } else {
-    $insert = "INSERT INTO fornecedor(descricaoFornecedor) VALUES('$supplier_name')";
+    $insert = "INSERT INTO categoria(descricaoCategoria) VALUES('$category_name')";
 
     $upload = mysqli_query($conn, $insert);
     if ($upload) {
-      $message[] = 'Fornecedor cadastrado com sucesso!';
+      $message[] = 'Categoria cadastrada com sucesso!';
     } else {
-      $message[] = 'O fornecedor não pôde ser cadastrado!';
+      $message[] = 'A categoria não pôde ser cadastrada!';
     }
   }
 };
 
 if (isset($_GET['delete'])) {
   $id = $_GET['delete'];
-  mysqli_query($conn, "DELETE FROM fornecedor WHERE idFornecedor = $id");
-  header('location:addFornecedor.php');
+  mysqli_query($conn, "DELETE FROM categoria WHERE idCategoria = $id");
+  header('location:addCategoria.php');
 };
 
 ?>
@@ -44,7 +44,7 @@ if (isset($_GET['delete'])) {
   <!-- FONT AWESOME -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
 
-  <title>Adicionar Fornecedor</title>
+  <title>Adicionar Categoria</title>
 </head>
 
 <body>
@@ -92,14 +92,14 @@ if (isset($_GET['delete'])) {
           <h3>Produtos</h3>
         </a>
 
-        <a href="addFornecedor.php" class="active">
+        <a href="addFornecedor.php">
           <span class="material-icons-sharp">
             local_shipping
           </span>
           <h3>Fornecedores</h3>
         </a>
 
-        <a href="addCategoria.php">
+        <a href="addCategoria.php" class="active">
           <span class="material-icons-sharp">
             category
           </span>
@@ -116,7 +116,7 @@ if (isset($_GET['delete'])) {
           <h3>Configurações</h3>
         </a>
 
-        <a href="login.html">
+        <a href="#">
           <span class="material-icons-sharp">logout</span>
           <h3>Sair</h3>
         </a>
@@ -131,15 +131,15 @@ if (isset($_GET['delete'])) {
       }
       ?>
       <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post" enctype="multipart/form-data">
-        <h2>Adicionar novo fornecedor</h2>
-        <input type="text" placeholder="Digite o nome do fornecedor" name="supplier_name" class="box" />
+        <h2>Adicionar nova categoria</h2>
+        <input type="text" placeholder="Digite o nome da categoria" name="category_name" class="box" />
 
-        <input type="submit" class="btn" name="add_supplier" value="Adicionar Fornecedor" />
+        <input type="submit" class="btn" name="add_category" value="Adicionar Categoria" />
       </form>
     </div>
 
     <?php
-    $select = mysqli_query($conn, "SELECT * FROM fornecedor");
+    $select = mysqli_query($conn, "SELECT * FROM categoria");
     ?>
 
   </div>
@@ -155,10 +155,10 @@ if (isset($_GET['delete'])) {
 
         <?php while ($row = mysqli_fetch_assoc($select)) { ?>
           <tr>
-            <td><?php echo $row['descricaoFornecedor']; ?></td>
+            <td><?php echo $row['descricaoCategoria']; ?></td>
             <td>
-              <a href="editarFornecedor.php?edit=<?php echo $row['idFornecedor']; ?>" class="btn"> <i class="fas fa-edit"> edit </i> </a>
-              <a href="addFornecedor.php?delete=<?php echo $row['idFornecedor']; ?>" class="btn"> <i class="fas fa-trash"> delete </i> </a>
+              <a href="editarCategoria.php?edit=<?php echo $row['idCategoria']; ?>" class="btn"> <i class="fas fa-edit"> edit </i> </a>
+              <a href="addCategoria.php?delete=<?php echo $row['idCategoria']; ?>" class="btn"> <i class="fas fa-trash"> delete </i> </a>
             </td>
           </tr>
         <?php }; ?>
