@@ -16,8 +16,7 @@ if (isset($_POST['add_product'])) {
   if (empty($product_name) || empty($product_description) || empty($product_price) || empty($product_supplier) || empty($product_category) || empty($product_qtde) || empty($product_image)) {
     $message[] = 'Preencha todos os campos!';
   } else {
-    // $innerJoinCategoria = "SELECT descricaoCategoria FROM produto p INNER JOIN categoria c ON p.idCategoria = c.idCategoria";
-    $insert = "INSERT INTO produto(nomeProduto, descricaoProduto, precoProduto, idFornecedor, idCategoria, qtdeProduto, imagemProduto) VALUES('$product_name', '$product_description', '$product_price', '$product_supplier', '$product_category', '$product_qtde', '$product_image')";
+    $insert = "INSERT INTO produto(nomeProduto, descricaoProduto, precoProduto, idFornecedor, idCategoria, qtdeProduto, imagemProduto) SELECT '$product_name', '$product_description', '$product_price', '$product_supplier', '$product_category', '$product_qtde', '$product_image' FROM produto p INNER JOIN fornecedor f ON p.idFornecedor = f.idFornecedor INNER JOIN categoria c ON p.idCategoria = c.idCategoria WHERE p.idFornecedor = '$product_supplier' AND p.idCategoria = '$product_category'";
 
     $upload = mysqli_query($conn, $insert);
     if ($upload) {
@@ -173,7 +172,7 @@ if (isset($_GET['delete'])) {
     </div>
 
     <?php
-    $select = mysqli_query($conn, "SELECT * FROM produto");
+    $select = mysqli_query($conn, "SELECT *, descricaoFornecedor, descricaoCategoria FROM produto p INNER JOIN fornecedor f ON p.idFornecedor = f.idFornecedor INNER JOIN categoria c ON p.idCategoria = c.idCategoria");
     ?>
 
   </div>
@@ -195,15 +194,15 @@ if (isset($_GET['delete'])) {
 
         <?php while ($row = mysqli_fetch_assoc($select)) { ?>
           <tr>
-            <td><img src="assets/images/<?php echo $row['image']; ?>" height="100" alt=""></td>
+            <td><img src="assets/images/<?php echo $row['imagemProduto']; ?>" height="100" alt=""></td>
             <td><?php echo $row['nomeProduto']; ?></td>
-            <td><?php echo $row['descricaoProduto']; ?></td>
+            <td><?php echo $row['precoProduto']; ?></td>
             <td><?php echo $row['qtdeProduto']; ?></td>
-            <td><?php echo $row['idFornecedor']; ?></td>
-            <td><?php echo $row['idCategoria']; ?></td>
+            <td><?php echo $row['descricaoFornecedor']; ?></td>
+            <td><?php echo $row['descricaoCategoria']; ?></td>
             <td>
-              <a href="editarProduto.php?edit=<?php echo $row['idProduto']; ?>" class="btn"> <i class="fas fa-edit"> edit </i> </a>
-              <a href="addProduto.php?delete=<?php echo $row['idProduto']; ?>" class="btn"> <i class="fas fa-trash"> delete </i> </a>
+              <a href="editarProduto.php?edit=<?php echo $row['idProduto']; ?>" class="btn"> <i class="fas fa-edit"> Editar </i> </a>
+              <a href="addProduto.php?delete=<?php echo $row['idProduto']; ?>" class="btn"> <i class="fas fa-trash"> Excluir </i> </a>
             </td>
           </tr>
         <?php }; ?>

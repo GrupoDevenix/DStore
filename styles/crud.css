@@ -271,7 +271,7 @@ aside .sidebar .message-count{
 .product-display .product-display-table td{
   font-size: 2rem;
   padding: 1rem;
-  border-bottom: 1rem solid #333;
+  border-bottom: .2rem solid #333;
 }
 
 .product-display .product-display-table .btn:first-child{

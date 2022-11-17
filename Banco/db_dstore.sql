@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 15-Nov-2022 às 02:13
+-- Tempo de geração: 17-Nov-2022 às 18:45
 -- Versão do servidor: 10.4.25-MariaDB
 -- versão do PHP: 8.1.10
 
@@ -37,8 +37,10 @@ CREATE TABLE `categoria` (
 --
 
 INSERT INTO `categoria` (`idCategoria`, `descricaoCategoria`) VALUES
-(1, 'Eletrônico'),
-(2, 'Periféricos');
+(5, 'Placa de vídeo'),
+(6, 'Periféricos'),
+(7, 'Eletrônicos'),
+(8, 'Processadores');
 
 -- --------------------------------------------------------
 
@@ -57,6 +59,13 @@ CREATE TABLE `cliente` (
   `cidade` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Extraindo dados da tabela `cliente`
+--
+
+INSERT INTO `cliente` (`idCliente`, `emailCliente`, `nomeCliente`, `logradouro`, `numero`, `cep`, `bairro`, `cidade`) VALUES
+(1, 'email@email.com', 'Teste', 'AAAAA', '69', '12345678', 'ASDASDASD', 'SPDLSMD');
+
 -- --------------------------------------------------------
 
 --
@@ -73,9 +82,9 @@ CREATE TABLE `fornecedor` (
 --
 
 INSERT INTO `fornecedor` (`idFornecedor`, `descricaoFornecedor`) VALUES
-(1, 'AMD'),
-(4, 'Intel'),
-(5, 'Nvidia');
+(8, 'AMD'),
+(9, 'Intel'),
+(10, 'Nvidia');
 
 -- --------------------------------------------------------
 
@@ -85,21 +94,10 @@ INSERT INTO `fornecedor` (`idFornecedor`, `descricaoFornecedor`) VALUES
 
 CREATE TABLE `funcionario` (
   `idFuncionario` int(255) NOT NULL,
+  `emailFuncionario` varchar(255) NOT NULL,
+  `senhaFuncionario` varchar(255) NOT NULL,
   `nomeFuncionario` varchar(255) NOT NULL,
-  `cpfFuncionario` varchar(255) NOT NULL,
-  `fotoFuncionario` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `login`
---
-
-CREATE TABLE `login` (
-  `idLogin` int(255) NOT NULL,
-  `emailLogin` varchar(255) NOT NULL,
-  `senha` varchar(255) NOT NULL
+  `cpfFuncionario` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -113,10 +111,25 @@ CREATE TABLE `produto` (
   `nomeProduto` varchar(255) NOT NULL,
   `descricaoProduto` varchar(510) NOT NULL,
   `precoProduto` varchar(255) NOT NULL,
-  `qtdeProduto` int(255) NOT NULL,
-  `imagemProduto` varchar(255) NOT NULL,
   `idFornecedor` int(255) NOT NULL,
-  `idCategoria` int(255) NOT NULL
+  `idCategoria` int(255) NOT NULL,
+  `qtdeProduto` int(255) NOT NULL,
+  `imagemProduto` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `venda`
+--
+
+CREATE TABLE `venda` (
+  `idVenda` int(11) NOT NULL,
+  `idProduto` int(11) NOT NULL,
+  `idFuncionario` int(11) NOT NULL,
+  `idCliente` int(11) NOT NULL,
+  `valorTotal` double NOT NULL,
+  `notaFiscal` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -148,18 +161,18 @@ ALTER TABLE `funcionario`
   ADD PRIMARY KEY (`idFuncionario`);
 
 --
--- Índices para tabela `login`
---
-ALTER TABLE `login`
-  ADD PRIMARY KEY (`idLogin`);
-
---
 -- Índices para tabela `produto`
 --
 ALTER TABLE `produto`
   ADD PRIMARY KEY (`idProduto`),
-  ADD KEY `idFornecedor` (`idFornecedor`),
-  ADD KEY `idCategoria` (`idCategoria`);
+  ADD KEY `idCategoria` (`idCategoria`),
+  ADD KEY `idFornecedor` (`idFornecedor`);
+
+--
+-- Índices para tabela `venda`
+--
+ALTER TABLE `venda`
+  ADD PRIMARY KEY (`idVenda`);
 
 --
 -- AUTO_INCREMENT de tabelas despejadas
@@ -169,19 +182,19 @@ ALTER TABLE `produto`
 -- AUTO_INCREMENT de tabela `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `idCategoria` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idCategoria` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de tabela `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `idCliente` int(255) NOT NULL AUTO_INCREMENT;
+  MODIFY `idCliente` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `fornecedor`
 --
 ALTER TABLE `fornecedor`
-  MODIFY `idFornecedor` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idFornecedor` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de tabela `funcionario`
@@ -190,16 +203,16 @@ ALTER TABLE `funcionario`
   MODIFY `idFuncionario` int(255) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de tabela `login`
---
-ALTER TABLE `login`
-  MODIFY `idLogin` int(255) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT de tabela `produto`
 --
 ALTER TABLE `produto`
-  MODIFY `idProduto` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `idProduto` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
+-- AUTO_INCREMENT de tabela `venda`
+--
+ALTER TABLE `venda`
+  MODIFY `idVenda` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Restrições para despejos de tabelas
@@ -209,10 +222,8 @@ ALTER TABLE `produto`
 -- Limitadores para a tabela `produto`
 --
 ALTER TABLE `produto`
-  ADD CONSTRAINT `produto_ibfk_1` FOREIGN KEY (`idFornecedor`) REFERENCES `fornecedor` (`idFornecedor`),
-  ADD CONSTRAINT `produto_ibfk_2` FOREIGN KEY (`idCategoria`) REFERENCES `categoria` (`idCategoria`),
-  ADD CONSTRAINT `produto_ibfk_3` FOREIGN KEY (`idFornecedor`) REFERENCES `fornecedor` (`idFornecedor`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `produto_ibfk_4` FOREIGN KEY (`idCategoria`) REFERENCES `categoria` (`idCategoria`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `idCategoria` FOREIGN KEY (`idCategoria`) REFERENCES `categoria` (`idCategoria`),
+  ADD CONSTRAINT `idFornecedor` FOREIGN KEY (`idFornecedor`) REFERENCES `fornecedor` (`idFornecedor`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
