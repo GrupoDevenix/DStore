@@ -72,7 +72,7 @@ if (isset($_POST['update_client'])) {
           <h3>Dashboard</h3>
         </a>
 
-        <a href="addCliente.php">
+        <a href="addCliente.php" class="active">
           <span class="material-icons-sharp">person_outline</span>
           <h3>Clientes</h3>
         </a>
@@ -103,7 +103,7 @@ if (isset($_POST['update_client'])) {
           <h3>Fornecedores</h3>
         </a>
 
-        <a href="addCategoria.php" class="active">
+        <a href="addCategoria.php">
           <span class="material-icons-sharp">
             category
           </span>

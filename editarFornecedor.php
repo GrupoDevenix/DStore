@@ -92,12 +92,12 @@ if (isset($_POST['update_supplier'])) {
           <h3>Produtos</h3>
         </a>
 
-        <a href="addFornecedor.php">
+        <a href="addFornecedor.php" class="active">
           <span class="material-icons-sharp">local_shipping</span>
           <h3>Fornecedores</h3>
         </a>
 
-        <a href="addCategoria.php" class="active">
+        <a href="addCategoria.php">
           <span class="material-icons-sharp">
             category
           </span>

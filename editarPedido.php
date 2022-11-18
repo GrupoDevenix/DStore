@@ -3,27 +3,22 @@
 
 $id = $_GET['edit'];
 
-if (isset($_POST['update_product'])) {
-  $product_name = $_POST['product_name'];
-  $product_description = $_POST['product_description'];
-  $product_price = $_POST['product_price'];
-  $product_supplier = $_POST['product_supplier'];
-  $product_category = $_POST['product_category'];
-  $product_qtde = $_POST['product_qtde'];
-  $product_image = $_FILES['product_image']['name'];
-  $product_image_tmp_name = $_FILES['product_image']['tmp_name'];
-  $product_image_folder = 'assets/images/' . $product_image;
+if (isset($_POST['update_order'])) {
+  $order_product = $_POST['order_product'];
+  $order_client = $_POST['order_client'];
+  $order_employee = $_POST['order_employee'];
+  $order_price = $_POST['order_price'];
 
-  if (empty($product_name) || empty($product_description) || empty($product_price) || empty($product_supplier) || empty($product_category) || empty($product_qtde) || empty($product_image)) {
+  if (empty($order_product) || empty($order_client) || empty($order_employee) || empty($order_price)) {
     $message[] = 'Preencha todos os campos!';
   } else {
-    $update = "UPDATE produto SET nomeProduto = '$product_name', descricaoProduto = '$product_description', precoProduto = '$product_price', idFornecedor = '$product_supplier', idCategoria = '$product_category', qtdeProduto = '$product_qtde', imagemProduto = '$product_image' WHERE idProduto = $id";
+    $update = "UPDATE venda SET idProduto = '$order_product', idCliente = '$order_client', idFuncionario = '$order_employee', valorTotal = '$order_price' WHERE idVenda = $id";
 
     $upload = mysqli_query($conn, $update);
     if ($upload) {
-      $message[] = 'Produto atualizado com sucesso!';
+      $message[] = 'Pedido alterado com sucesso!';
     } else {
-      $message[] = 'O produto não pôde ser atualizado!';
+      $message[] = 'O pedido não pôde ser alterado!';
     }
   }
 };
@@ -80,7 +75,7 @@ if (isset($_POST['update_product'])) {
           <h3>Clientes</h3>
         </a>
 
-        <a href="addPedido.php">
+        <a href="addPedido.php" class="active">
           <span class="material-icons-sharp">receipt_long</span>
           <h3>Pedidos</h3>
         </a>
@@ -96,7 +91,7 @@ if (isset($_POST['update_product'])) {
           <span class="message-count">26</span>
         </a> -->
 
-        <a href="addProduto.php" class="active">
+        <a href="addProduto.php">
           <span class="material-icons-sharp">inventory</span>
           <h3>Produtos</h3>
         </a>
@@ -132,42 +127,33 @@ if (isset($_POST['update_product'])) {
 
     <div class="admin-product-form-container centered">
       <?php
-      $select = mysqli_query($conn, "SELECT * FROM produto WHERE idProduto = $id");
+      $select = mysqli_query($conn, "SELECT * FROM venda WHERE id = $id");
       while ($row = mysqli_fetch_assoc($select)) {
 
       ?>
 
         <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post" enctype="multipart/form-data">
           <h2>Atualizar produto</h2>
-          <input type="text" placeholder="Digite o nome do produto" name="product_name" class="box" value="<?php echo $row['nomeProduto'] ?>" />
+          <input type="text" placeholder="Digite o nome do produto" name="product_name" value="<?php echo $row['nomeProduto'] ?>" class="box" />
 
-          <textarea name="product_description" placeholder="Descreva o produto" cols="20" rows="5" class="box"><?php echo $row['descricaoProduto'] ?></textarea>
+          <textarea name="product_description" placeholder="Descreva o produto" value="<?php echo $row['descricaoProduto'] ?>" cols="20" rows="5" class="box"></textarea>
 
-          <input type="number" placeholder="Digite o valor" name="product_price" class="box" value="<?php echo $row['precoProduto'] ?>" />
-
-          <?php
-          $selectFornecedor = mysqli_query($conn, "SELECT f.* FROM fornecedor f");
-          $selectCategoria = mysqli_query($conn, "SELECT c.* FROM categoria c");
-          ?>
-          <select name="product_supplier" class="box">
-            <option selected>Selecione o fornecedor</option>
-            <?php while ($row = mysqli_fetch_assoc($selectFornecedor)) { ?>
-              <option name="product_supplier" value="<?php echo $row['idFornecedor']; ?>"><?php echo $row['descricaoFornecedor'] ?></option>
-            <?php }; ?>
+          <input type="number" placeholder="Digite o valor" name="product_price" value="<?php echo $row['precoProduto'] ?>" class="box" />
+          <select name="product_supplier" value="<?php echo $row['idFornecedor'] ?>" class="box">
+            <option>Selecione o fornecedor</option>
           </select>
 
-          <select name="product_category" class="box">
-            <option selected>Selecione a categoria</option>
-            <?php while ($row = mysqli_fetch_assoc($selectCategoria)) { ?>
-              <option name="product_category" value="<?php echo $row['idCategoria']; ?>"><?php echo $row['descricaoCategoria'] ?></option>
-            <?php }; ?>
+          <select name="product_category" value="<?php echo $row['idCategoria'] ?>" class="box">
+            <option value="product_category">Selecione a categoria</option>
           </select>
 
-          <input type="number" placeholder="Digite a quantidade" name="product_qtde" class="box" value="<?php echo $row['precoProduto'] ?>" />
+          <input type="number" placeholder="Digite a quantidade" name="product_qtde" value="<?php echo $row['qtdeProduto'] ?>" class="box" />
 
-          <input type="file" accept="image/png, image/jpeg, image/jpg" name="product_image" class="box" />
+          <input type="file" accept="image/png, image/jpeg, image/jpg" name="product_image" value="<?php echo $row['imagemProduto'] ?>" class="box" />
 
           <input type="submit" class="btn" name="update_product" value="Atualizar Produto" />
+
+          <a href="addProduto.php" class="btn">Voltar</a>
         </form>
       <?php }; ?>
     </div>

@@ -16,7 +16,7 @@ if (isset($_POST['add_product'])) {
   if (empty($product_name) || empty($product_description) || empty($product_price) || empty($product_supplier) || empty($product_category) || empty($product_qtde) || empty($product_image)) {
     $message[] = 'Preencha todos os campos!';
   } else {
-    $insert = "INSERT INTO produto(nomeProduto, descricaoProduto, precoProduto, idFornecedor, idCategoria, qtdeProduto, imagemProduto) SELECT '$product_name', '$product_description', '$product_price', '$product_supplier', '$product_category', '$product_qtde', '$product_image' FROM produto p INNER JOIN fornecedor f ON p.idFornecedor = f.idFornecedor INNER JOIN categoria c ON p.idCategoria = c.idCategoria WHERE p.idFornecedor = '$product_supplier' AND p.idCategoria = '$product_category'";
+    $insert = "INSERT INTO produto(nomeProduto, descricaoProduto, precoProduto, idFornecedor, idCategoria, qtdeProduto, imagemProduto) VALUES ('$product_name', '$product_description', '$product_price', '$product_supplier', '$product_category', '$product_qtde', '$product_image')";
 
     $upload = mysqli_query($conn, $insert);
     if ($upload) {
@@ -96,7 +96,7 @@ if (isset($_GET['delete'])) {
           <span class="message-count">26</span>
         </a> -->
 
-        <a href="addProduto.php">
+        <a href="addProduto.php" class="active">
           <span class="material-icons-sharp">inventory</span>
           <h3>Produtos</h3>
         </a>
@@ -106,7 +106,7 @@ if (isset($_GET['delete'])) {
           <h3>Fornecedores</h3>
         </a>
 
-        <a href="addCategoria.php" class="active">
+        <a href="addCategoria.php">
           <span class="material-icons-sharp">
             category
           </span>
@@ -146,20 +146,20 @@ if (isset($_GET['delete'])) {
         <input type="number" placeholder="Digite o valor" name="product_price" class="box" />
 
         <?php
-        $selectFornecedor = mysqli_query($conn, "SELECT f.* FROM fornecedor f /*INNER JOIN produto p ON f.idFornecedor = p.idFornecedor*/");
-        $selectCategoria = mysqli_query($conn, "SELECT c.* FROM categoria c /*INNER JOIN produto p ON c.idCategoria = p.idCategoria*/");
+        $selectFornecedor = mysqli_query($conn, "SELECT f.* FROM fornecedor f");
+        $selectCategoria = mysqli_query($conn, "SELECT c.* FROM categoria c");
         ?>
         <select name="product_supplier" class="box">
           <option selected>Selecione o fornecedor</option>
           <?php while ($row = mysqli_fetch_assoc($selectFornecedor)) { ?>
-            <option value="product_supplier"><?php echo $row['descricaoFornecedor']; ?></option>
+            <option name="product_supplier" value="<?php echo $row['idFornecedor'] ?>"><?php echo $row['descricaoFornecedor']; ?></option>
           <?php }; ?>
         </select>
 
         <select name="product_category" class="box">
           <option selected>Selecione a categoria</option>
           <?php while ($row = mysqli_fetch_assoc($selectCategoria)) { ?>
-            <option value="product_category"><?php echo $row['descricaoCategoria']; ?></option>
+            <option name="product_category" value="<?php echo $row['idCategoria'] ?>"><?php echo $row['descricaoCategoria']; ?></option>
           <?php }; ?>
         </select>
 
