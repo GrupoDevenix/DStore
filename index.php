@@ -21,20 +21,27 @@
 <body>
   <!--MAIN-->
   <div class="mensagem">
+
     <?php if (isset($_GET["login"]) && $_GET["login"] == true) { ?>
       <?php header("Location:dashboard.php?logout=true"); ?>
     <?php } ?>
-    <?php if (isset($_GET["login"]) && $_GET["login"] == false) { ?>
-      <p class="alert-danger"> Usuario ou senha invalida</p>
-    <?php } ?>
 
+    <?php if (isset($_GET["logout"]) && $_GET["logout"] == true) { ?>
+      <p class="alert-sucess"> Usuario deslogado com sucesso</p>
+    <?php } ?>
   </div>
   <main class="container">
     <?php if (usuarioEstaLogado()) { ?>
-      <p class="text_success">Você esta logago como <?= usuarioLogado() ?>.</p>
+      <p class="text_success">Você esta logago como <?= usuarioLogado() ?> deseja realmente sair?<br>
+        <br><a href="logout.php" class="deslogar">Sim</a>
+        <a href="dashboard.php" class="naoDeslogar">Não</a>
+      </p>
     <?php } else { ?>
 
-      <h1 class="logo">DStore</h1>
+      <h1 class=" logo">DStore</h1>
+      <?php if (isset($_GET["login"]) && $_GET["login"] == false) { ?>
+        <p class="alert-danger"> Usuario ou senha invalida</p>
+      <?php } ?>
       <h2>Login</h2>
       <form action="login.php" method="post">
         <div class="input-field">

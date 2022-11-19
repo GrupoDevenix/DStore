@@ -9,6 +9,9 @@
   <!--CSS-->
   <link rel="stylesheet" href="styles/style.css" />
 
+  <!--PHP-->
+  <?php include("logica-usuario.php"); ?>
+
   <!--MATERIAL ICONS-->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet" />
 
@@ -83,7 +86,7 @@
           <h3>Configurações</h3>
         </a> -->
 
-        <a href="login.html">
+        <a href="index.php">
           <span class="material-icons-sharp">logout</span>
           <h3>Sair</h3>
         </a>
