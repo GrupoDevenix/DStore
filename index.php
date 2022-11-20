@@ -64,7 +64,7 @@
           <input class="botao" type="submit" value="Continue" />
         </form>
         <br>
-        <span class="es" style="color:aliceblue">Esqueci minha senha</span>
+        <a href="#" class="linha"><span class="es">Esqueci minha senha</span></a>
   </main>
 <?php } ?>
 </body>
