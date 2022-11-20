@@ -87,7 +87,7 @@
         </a> -->
 
         <a href="index.php">
-          <span class="material-icons-sharp">logout</span>
+          <span class="material-icons-sharp"><?php logout() ?>logout</span>
           <h3>Sair</h3>
         </a>
       </div>
