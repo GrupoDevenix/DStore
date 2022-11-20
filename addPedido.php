@@ -8,11 +8,12 @@ if (isset($_POST['add_order'])) {
   $order_employee = $_POST['order_employee'];
   $order_client = $_POST['order_client'];
   $order_price = $_POST['order_price'];
+  $order_date = $_POST['order_date'];
 
-  if (empty($order_product) || empty($order_employee) || empty($order_client) || empty($order_price)) {
+  if (empty($order_product) || empty($order_employee) || empty($order_client) || empty($order_price) || empty($order_date)) {
     $message[] = 'Preencha todos os campos!';
   } else {
-    $insert = "INSERT INTO venda(idProduto, idFuncionario, idCliente, valorTotal) VALUES ('$order_product', '$order_employee', '$order_client', '$order_price')";
+    $insert = "INSERT INTO venda(idProduto, idFuncionario, idCliente, valorTotal, data) VALUES ('$order_product', '$order_employee', '$order_client', '$order_price', '$order_date')";
 
     $upload = mysqli_query($conn, $insert);
     if ($upload) {
@@ -138,9 +139,9 @@ if (isset($_GET['delete'])) {
       <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post" enctype="multipart/form-data">
         <h2>Cadastrar nova venda</h2>
         <?php
-        $selectProduto = mysqli_query($conn, "SELECT * FROM produto");
-        $selectFuncionario = mysqli_query($conn, "SELECT * FROM funcionario");
-        $selectCliente = mysqli_query($conn, "SELECT c.* FROM cliente c");
+        $selectProduto = mysqli_query($conn, "SELECT * FROM produto p GROUP BY nomeProduto");
+        $selectFuncionario = mysqli_query($conn, "SELECT * FROM usuarios u GROUP BY nome");
+        $selectCliente = mysqli_query($conn, "SELECT c.* FROM cliente c GROUP BY nomeCliente");
         ?>
 
         <select name="order_product" class="box">
@@ -153,7 +154,7 @@ if (isset($_GET['delete'])) {
         <select name="order_employee" class="box">
           <option selected>Selecione o funcionário</option>
           <?php while ($row = mysqli_fetch_assoc($selectFuncionario)) { ?>
-            <option name="order_employee" value="<?php echo $row['idFuncionario'] ?>"><?php echo $row['nomeFuncionario']; ?></option>
+            <option name="order_employee" value="<?php echo $row['idFuncionario'] ?>"><?php echo $row['nome']; ?></option>
           <?php }; ?>
         </select>
 
@@ -166,14 +167,14 @@ if (isset($_GET['delete'])) {
 
         <input type="number" placeholder="Digite o valor total" name="order_price" class="box" />
 
-
+        <input type="date" placeholder="Digite a data" name="order_date" class="box" />
 
         <input type="submit" class="btn" name="add_order" value="Cadastrar Venda" />
       </form>
     </div>
 
     <?php
-    $select = mysqli_query($conn, "SELECT *, nomeProduto, nomeCliente, f.nome FROM venda v INNER JOIN produto p ON v.idProduto = p.idProduto INNER JOIN cliente c ON v.idCliente = c.idCliente INNER JOIN funcionario f ON v.idFuncionario = f.idFuncionario");
+    $select = mysqli_query($conn, "SELECT *, nomeProduto, nomeCliente, f.nome FROM venda v INNER JOIN produto p ON v.idProduto = p.idProduto INNER JOIN cliente c ON v.idCliente = c.idCliente INNER JOIN usuarios u ON v.idFuncionario = u.idFuncionario");
     ?>
 
   </div>
@@ -187,6 +188,7 @@ if (isset($_GET['delete'])) {
             <th>Cliente</th>
             <th>Funcionário</th>
             <th>Valor Total</th>
+            <th>Data</th>
             <th>Ação</th>
           </tr>
         </thead>
@@ -197,9 +199,10 @@ if (isset($_GET['delete'])) {
             <td><?php echo $row['nomeCliente']; ?></td>
             <td><?php echo $row['nome']; ?></td>
             <td><?php echo $row['valorTotal']; ?></td>
+            <td><?php echo $ror['data']; ?></td>
             <td>
-              <a href="editarVenda.php?edit=<?php echo $row['idVenda']; ?>" class="btn"> <i class="fas fa-edit"> Editar </i> </a>
-              <a href="addVenda.php?delete=<?php echo $row['idVenda']; ?>" class="btn"> <i class="fas fa-trash"> Excluir </i> </a>
+              <a href="editarPedido.php?edit=<?php echo $row['idVenda']; ?>" class="btn"> <i class="fas fa-edit"> Editar </i> </a>
+              <a href="addPedido.php?delete=<?php echo $row['idVenda']; ?>" class="btn"> <i class="fas fa-trash"> Excluir </i> </a>
             </td>
           </tr>
         <?php }; ?>

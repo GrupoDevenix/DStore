@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 17-Nov-2022 às 18:45
+-- Tempo de geração: 20-Nov-2022 às 16:38
 -- Versão do servidor: 10.4.25-MariaDB
 -- versão do PHP: 8.1.10
 
@@ -64,7 +64,8 @@ CREATE TABLE `cliente` (
 --
 
 INSERT INTO `cliente` (`idCliente`, `emailCliente`, `nomeCliente`, `logradouro`, `numero`, `cep`, `bairro`, `cidade`) VALUES
-(1, 'email@email.com', 'Teste', 'AAAAA', '69', '12345678', 'ASDASDASD', 'SPDLSMD');
+(1, 'email@email.com', 'Teste', 'AAAAA', '69', '12345678', 'ASDASDASD', 'SPDLSMD'),
+(2, 'email@aaa.com', 'AAA', 'asds', '5', '000', 'dsdf', 'qwet');
 
 -- --------------------------------------------------------
 
@@ -89,20 +90,6 @@ INSERT INTO `fornecedor` (`idFornecedor`, `descricaoFornecedor`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `funcionario`
---
-
-CREATE TABLE `funcionario` (
-  `idFuncionario` int(255) NOT NULL,
-  `emailFuncionario` varchar(255) NOT NULL,
-  `senhaFuncionario` varchar(255) NOT NULL,
-  `nomeFuncionario` varchar(255) NOT NULL,
-  `cpfFuncionario` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
 -- Estrutura da tabela `produto`
 --
 
@@ -117,6 +104,35 @@ CREATE TABLE `produto` (
   `imagemProduto` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Extraindo dados da tabela `produto`
+--
+
+INSERT INTO `produto` (`idProduto`, `nomeProduto`, `descricaoProduto`, `precoProduto`, `idFornecedor`, `idCategoria`, `qtdeProduto`, `imagemProduto`) VALUES
+(33, 'GTX 1080', 'Placa de vídeo', '60', 10, 8, 5, 'food-4.png'),
+(34, 'RX 550', 'Placa 2', '900', 8, 5, 2, 'food-1.png');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `usuarios`
+--
+
+CREATE TABLE `usuarios` (
+  `idFuncionario` int(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `senha` varchar(255) NOT NULL,
+  `nome` varchar(255) NOT NULL,
+  `cpf` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `usuarios`
+--
+
+INSERT INTO `usuarios` (`idFuncionario`, `email`, `senha`, `nome`, `cpf`) VALUES
+(1, 'email@email.com', '123456', 'João', '12345678900');
+
 -- --------------------------------------------------------
 
 --
@@ -129,8 +145,15 @@ CREATE TABLE `venda` (
   `idFuncionario` int(11) NOT NULL,
   `idCliente` int(11) NOT NULL,
   `valorTotal` double NOT NULL,
-  `notaFiscal` varchar(500) NOT NULL
+  `data` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `venda`
+--
+
+INSERT INTO `venda` (`idVenda`, `idProduto`, `idFuncionario`, `idCliente`, `valorTotal`, `data`) VALUES
+(1, 33, 1, 1, 1500, '2022-11-20');
 
 --
 -- Índices para tabelas despejadas
@@ -155,18 +178,18 @@ ALTER TABLE `fornecedor`
   ADD PRIMARY KEY (`idFornecedor`);
 
 --
--- Índices para tabela `funcionario`
---
-ALTER TABLE `funcionario`
-  ADD PRIMARY KEY (`idFuncionario`);
-
---
 -- Índices para tabela `produto`
 --
 ALTER TABLE `produto`
   ADD PRIMARY KEY (`idProduto`),
   ADD KEY `idCategoria` (`idCategoria`),
   ADD KEY `idFornecedor` (`idFornecedor`);
+
+--
+-- Índices para tabela `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD PRIMARY KEY (`idFuncionario`);
 
 --
 -- Índices para tabela `venda`
@@ -188,7 +211,7 @@ ALTER TABLE `categoria`
 -- AUTO_INCREMENT de tabela `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `idCliente` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idCliente` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `fornecedor`
@@ -197,22 +220,22 @@ ALTER TABLE `fornecedor`
   MODIFY `idFornecedor` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT de tabela `funcionario`
---
-ALTER TABLE `funcionario`
-  MODIFY `idFuncionario` int(255) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT de tabela `produto`
 --
 ALTER TABLE `produto`
-  MODIFY `idProduto` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `idProduto` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+
+--
+-- AUTO_INCREMENT de tabela `usuarios`
+--
+ALTER TABLE `usuarios`
+  MODIFY `idFuncionario` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `venda`
 --
 ALTER TABLE `venda`
-  MODIFY `idVenda` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idVenda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Restrições para despejos de tabelas

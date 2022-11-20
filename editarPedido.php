@@ -130,33 +130,43 @@ if (isset($_POST['update_order'])) {
 
     <div class="admin-product-form-container centered">
       <?php
-      $select = mysqli_query($conn, "SELECT * FROM venda WHERE id = $id");
+      $select = mysqli_query($conn, "SELECT * FROM venda WHERE idVenda = $id");
       while ($row = mysqli_fetch_assoc($select)) {
 
       ?>
 
         <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post" enctype="multipart/form-data">
-          <h2>Atualizar produto</h2>
-          <input type="text" placeholder="Digite o nome do produto" name="product_name" value="<?php echo $row['nomeProduto'] ?>" class="box" />
+          <h2>Alterar Venda</h2>
+          <?php
+          $selectProduto = mysqli_query($conn, "SELECT p.* FROM produto p GROUP BY nomeProduto");
+          $selectFuncionario = mysqli_query($conn, "SELECT f.* FROM funcionario f GROUP BY nome");
+          $selectCliente = mysqli_query($conn, "SELECT c.* FROM cliente c GROUP BY nomeCliente");
+          ?>
 
-          <textarea name="product_description" placeholder="Descreva o produto" value="<?php echo $row['descricaoProduto'] ?>" cols="20" rows="5" class="box"></textarea>
-
-          <input type="number" placeholder="Digite o valor" name="product_price" value="<?php echo $row['precoProduto'] ?>" class="box" />
-          <select name="product_supplier" value="<?php echo $row['idFornecedor'] ?>" class="box">
-            <option>Selecione o fornecedor</option>
+          <select name="order_product" class="box">
+            <option>Selecione o produto</option>
+            <?php while ($row = mysqli_fetch_assoc($selectProduto)) { ?>
+              <option name="product_supplier" selected value="<?php echo $row['idProduto'] ?>"><?php echo $row['nomeProduto']; ?></option>
+            <?php }; ?>
           </select>
 
-          <select name="product_category" value="<?php echo $row['idCategoria'] ?>" class="box">
-            <option value="product_category">Selecione a categoria</option>
+          <select name="order_employee" class="box">
+            <option>Selecione o funcionário</option>
+            <?php while ($row = mysqli_fetch_assoc($selectFuncionario)) { ?>
+              <option name="order_employee" selected value="<?php echo $row['idFuncionario'] ?>"><?php echo $row['nome']; ?></option>
+            <?php }; ?>
           </select>
 
-          <input type="number" placeholder="Digite a quantidade" name="product_qtde" value="<?php echo $row['qtdeProduto'] ?>" class="box" />
+          <select name="order_client" class="box">
+            <option>Selecione o cliente</option>
+            <?php while ($row = mysqli_fetch_assoc($selectCliente)) { ?>
+              <option name="order_client" selected value="<?php echo $row['idCliente'] ?>"><?php echo $row['nomeCliente']; ?></option>
+            <?php }; ?>
+          </select>
 
-          <input type="file" accept="image/png, image/jpeg, image/jpg" name="product_image" value="<?php echo $row['imagemProduto'] ?>" class="box" />
+          <input type="number" placeholder="Digite o valor total" name="order_price" class="box" value="<?php echo $row['valorTotal'] ?>" />
 
-          <input type="submit" class="btn" name="update_product" value="Atualizar Produto" />
-
-          <a href="addProduto.php" class="btn">Voltar</a>
+          <input type="submit" class="btn" name="update_order" value="Editar Venda" />
         </form>
       <?php }; ?>
     </div>

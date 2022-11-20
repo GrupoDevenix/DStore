@@ -148,25 +148,26 @@ if (isset($_POST['update_product'])) {
 
           <input type="number" placeholder="Digite o valor" name="product_price" class="box" value="<?php echo $row['precoProduto'] ?>" />
 
+          <input type="number" placeholder="Digite a quantidade" name="product_qtde" class="box" value="<?php echo $row['precoProduto'] ?>" />
+
           <?php
           $selectFornecedor = mysqli_query($conn, "SELECT f.* FROM fornecedor f");
           $selectCategoria = mysqli_query($conn, "SELECT c.* FROM categoria c");
           ?>
           <select name="product_supplier" class="box">
-            <option selected>Selecione o fornecedor</option>
+            <option>Selecione o fornecedor</option>
             <?php while ($row = mysqli_fetch_assoc($selectFornecedor)) { ?>
-              <option name="product_supplier" value="<?php echo $row['idFornecedor']; ?>"><?php echo $row['descricaoFornecedor'] ?></option>
+              <option name="product_supplier" selected value="<?php echo $row['idFornecedor']; ?>"><?php echo $row['descricaoFornecedor'] ?></option>
             <?php }; ?>
           </select>
 
           <select name="product_category" class="box">
-            <option selected>Selecione a categoria</option>
+            <option>Selecione a categoria</option>
             <?php while ($row = mysqli_fetch_assoc($selectCategoria)) { ?>
-              <option name="product_category" value="<?php echo $row['idCategoria']; ?>"><?php echo $row['descricaoCategoria'] ?></option>
+              <option name="product_category" selected value="<?php echo $row['idCategoria']; ?>"><?php echo $row['descricaoCategoria'] ?></option>
             <?php }; ?>
           </select>
 
-          <input type="number" placeholder="Digite a quantidade" name="product_qtde" class="box" value="<?php echo $row['precoProduto'] ?>" />
 
           <input type="file" accept="image/png, image/jpeg, image/jpg" name="product_image" class="box" />
 
