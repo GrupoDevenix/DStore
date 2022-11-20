@@ -8,11 +8,12 @@ if (isset($_POST['update_order'])) {
   $order_client = $_POST['order_client'];
   $order_employee = $_POST['order_employee'];
   $order_price = $_POST['order_price'];
+  $order_date = $_POST['order_date'];
 
-  if (empty($order_product) || empty($order_client) || empty($order_employee) || empty($order_price)) {
+  if (empty($order_product) || empty($order_client) || empty($order_employee) || empty($order_price) || empty($order_date)) {
     $message[] = 'Preencha todos os campos!';
   } else {
-    $update = "UPDATE venda SET idProduto = '$order_product', idCliente = '$order_client', idFuncionario = '$order_employee', valorTotal = '$order_price' WHERE idVenda = $id";
+    $update = "UPDATE venda SET idProduto = '$order_product', idCliente = '$order_client', idFuncionario = '$order_employee', valorTotal = '$order_price', data = '$order_date' WHERE idVenda = $id";
 
     $upload = mysqli_query($conn, $update);
     if ($upload) {
@@ -139,7 +140,7 @@ if (isset($_POST['update_order'])) {
           <h2>Alterar Venda</h2>
           <?php
           $selectProduto = mysqli_query($conn, "SELECT p.* FROM produto p GROUP BY nomeProduto");
-          $selectFuncionario = mysqli_query($conn, "SELECT f.* FROM funcionario f GROUP BY nome");
+          $selectFuncionario = mysqli_query($conn, "SELECT u.* FROM usuarios u GROUP BY nome");
           $selectCliente = mysqli_query($conn, "SELECT c.* FROM cliente c GROUP BY nomeCliente");
           ?>
 
@@ -165,6 +166,8 @@ if (isset($_POST['update_order'])) {
           </select>
 
           <input type="number" placeholder="Digite o valor total" name="order_price" class="box" value="<?php echo $row['valorTotal'] ?>" />
+
+          <input type="date" name="order_date" class="box" value="<?php echo $row['data'] ?>" />
 
           <input type="submit" class="btn" name="update_order" value="Editar Venda" />
         </form>

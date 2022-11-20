@@ -42,7 +42,7 @@ if (isset($_GET['delete'])) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!--CSS-->
-  <link rel="stylesheet" href="styles/crud.css" />
+  <link rel="stylesheet" href="styles/crudCliente.css" />
 
   <!--PHP-->
   <?php include("logica-usuario.php"); ?>
@@ -155,48 +155,52 @@ if (isset($_GET['delete'])) {
         <input type="text" placeholder="Digite o cidade" name="client_city" class="box" />
 
         <input type="submit" class="btn" name="add_client" value="Adicionar Cliente" />
+
+        <!-- <a href="relatorios/gerarRelatorioClientes.php">Emitir relatório</a> -->
       </form>
+
+      <?php
+      $select = mysqli_query($conn, "SELECT * FROM cliente");
+      ?>
+
+      <div class="product-container">
+        <div class="product-display">
+          <table class="product-display-table">
+            <thead>
+              <tr>
+                <th>Email</th>
+                <th>Nome</th>
+                <th>Endereço</th>
+                <th>Número</th>
+                <th>CEP</th>
+                <th>Bairro</th>
+                <th>Cidade</th>
+              </tr>
+            </thead>
+
+            <?php while ($row = mysqli_fetch_assoc($select)) { ?>
+              <tr>
+                <td><?php echo $row['emailCliente']; ?></td>
+                <td><?php echo $row['nomeCliente']; ?></td>
+                <td><?php echo $row['logradouro']; ?></td>
+                <td><?php echo $row['numero']; ?></td>
+                <td><?php echo $row['cep']; ?></td>
+                <td><?php echo $row['bairro']; ?></td>
+                <td><?php echo $row['cidade']; ?></td>
+                <td>
+                  <a href="editarCliente.php?edit=<?php echo $row['idCliente']; ?>" class="btn"> <i class="fas fa-edit"> edit </i> </a>
+                  <a href="addCliente.php?delete=<?php echo $row['idCliente']; ?>" class="btn"> <i class="fas fa-trash"> delete </i> </a>
+                </td>
+              </tr>
+            <?php }; ?>
+          </table>
+        </div>
+      </div>
     </div>
 
-    <?php
-    $select = mysqli_query($conn, "SELECT * FROM cliente");
-    ?>
 
   </div>
 
-  <div class="product-container">
-    <div class="product-display">
-      <table class="product-display-table">
-        <thead>
-          <tr>
-            <th>Email</th>
-            <th>Nome</th>
-            <th>Endereço</th>
-            <th>Número</th>
-            <th>CEP</th>
-            <th>Bairro</th>
-            <th>Cidade</th>
-          </tr>
-        </thead>
-
-        <?php while ($row = mysqli_fetch_assoc($select)) { ?>
-          <tr>
-            <td><?php echo $row['emailCliente']; ?></td>
-            <td><?php echo $row['nomeCliente']; ?></td>
-            <td><?php echo $row['logradouro']; ?></td>
-            <td><?php echo $row['numero']; ?></td>
-            <td><?php echo $row['cep']; ?></td>
-            <td><?php echo $row['bairro']; ?></td>
-            <td><?php echo $row['cidade']; ?></td>
-            <td>
-              <a href="editarCliente.php?edit=<?php echo $row['idCliente']; ?>" class="btn"> <i class="fas fa-edit"> edit </i> </a>
-              <a href="addCliente.php?delete=<?php echo $row['idCliente']; ?>" class="btn"> <i class="fas fa-trash"> delete </i> </a>
-            </td>
-          </tr>
-        <?php }; ?>
-      </table>
-    </div>
-  </div>
 </body>
 
 </html>

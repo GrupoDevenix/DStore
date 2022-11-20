@@ -167,48 +167,52 @@ if (isset($_GET['delete'])) {
 
         <input type="number" placeholder="Digite o valor total" name="order_price" class="box" />
 
-        <input type="date" placeholder="Digite a data" name="order_date" class="box" />
+        <input type="date" name="order_date" class="box" />
 
         <input type="submit" class="btn" name="add_order" value="Cadastrar Venda" />
+
+        <a href="relatorios/gerarRelatorioVendas.php">Emitir relatório</a>
+
       </form>
+
+      <div class="product-container">
+        <div class="product-display">
+          <table class="product-display-table">
+            <thead>
+              <tr>
+                <th>Produto</th>
+                <th>Cliente</th>
+                <th>Funcionário</th>
+                <th>Valor Total</th>
+                <th>Data</th>
+                <th>Ação</th>
+              </tr>
+            </thead>
+            <?php
+            $select = mysqli_query($conn, "SELECT *, nomeProduto, nomeCliente, u.nome FROM venda v INNER JOIN produto p ON v.idProduto = p.idProduto INNER JOIN cliente c ON v.idCliente = c.idCliente INNER JOIN usuarios u ON v.idFuncionario = u.idFuncionario");
+            ?>
+
+            <?php while ($row = mysqli_fetch_assoc($select)) { ?>
+              <tr>
+                <td><?php echo $row['nomeProduto']; ?></td>
+                <td><?php echo $row['nomeCliente']; ?></td>
+                <td><?php echo $row['nome']; ?></td>
+                <td><?php echo $row['valorTotal']; ?></td>
+                <td><?php echo $row['data']; ?></td>
+                <td>
+                  <a href="editarPedido.php?edit=<?php echo $row['idVenda']; ?>" class="btn"> <i class="fas fa-edit"> Editar </i> </a>
+                  <a href="addPedido.php?delete=<?php echo $row['idVenda']; ?>" class="btn"> <i class="fas fa-trash"> Excluir </i> </a>
+                </td>
+              </tr>
+            <?php }; ?>
+          </table>
+        </div>
+      </div>
     </div>
 
-    <?php
-    $select = mysqli_query($conn, "SELECT *, nomeProduto, nomeCliente, f.nome FROM venda v INNER JOIN produto p ON v.idProduto = p.idProduto INNER JOIN cliente c ON v.idCliente = c.idCliente INNER JOIN usuarios u ON v.idFuncionario = u.idFuncionario");
-    ?>
 
   </div>
 
-  <div class="product-container">
-    <div class="product-display">
-      <table class="product-display-table">
-        <thead>
-          <tr>
-            <th>Produto</th>
-            <th>Cliente</th>
-            <th>Funcionário</th>
-            <th>Valor Total</th>
-            <th>Data</th>
-            <th>Ação</th>
-          </tr>
-        </thead>
-
-        <?php while ($row = mysqli_fetch_assoc($select)) { ?>
-          <tr>
-            <td><?php echo $row['nomeProduto']; ?></td>
-            <td><?php echo $row['nomeCliente']; ?></td>
-            <td><?php echo $row['nome']; ?></td>
-            <td><?php echo $row['valorTotal']; ?></td>
-            <td><?php echo $ror['data']; ?></td>
-            <td>
-              <a href="editarPedido.php?edit=<?php echo $row['idVenda']; ?>" class="btn"> <i class="fas fa-edit"> Editar </i> </a>
-              <a href="addPedido.php?delete=<?php echo $row['idVenda']; ?>" class="btn"> <i class="fas fa-trash"> Excluir </i> </a>
-            </td>
-          </tr>
-        <?php }; ?>
-      </table>
-    </div>
-  </div>
 </body>
 
 </html>
