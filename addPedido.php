@@ -2,6 +2,7 @@
 @include 'config.php';
 
 
+
 if (isset($_POST['add_order'])) {
   $order_product = $_POST['order_product'];
   $order_employee = $_POST['order_employee'];
@@ -41,6 +42,9 @@ if (isset($_GET['delete'])) {
 
   <!--CSS-->
   <link rel="stylesheet" href="styles/crud.css" />
+
+  <!--PHP-->
+  <?php include("logica-usuario.php"); ?>
 
   <!--MATERIAL ICONS-->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet" />
@@ -118,8 +122,8 @@ if (isset($_GET['delete'])) {
           <h3>Configurações</h3>
         </a> -->
 
-        <a href="login.html">
-          <span class="material-icons-sharp">logout</span>
+        <a href="index.php">
+          <span class="material-icons-sharp"><?php logout() ?>logout</span>
           <h3>Sair</h3>
         </a>
       </div>
