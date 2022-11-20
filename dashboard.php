@@ -94,9 +94,9 @@
     <main>
       <h1>Dashboard</h1>
 
-      <div class="date">
+      <!-- <div class="date">
         <input type="date" />
-      </div>
+      </div> -->
 
       <!--INSIGHTS-->
       <div class="insights">

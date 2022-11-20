@@ -145,6 +145,8 @@ if (isset($_GET['delete'])) {
 
         <input type="number" placeholder="Digite o valor" name="product_price" class="box" />
 
+        <input type="number" placeholder="Digite a quantidade" name="product_qtde" class="box" />
+
         <?php
         $selectFornecedor = mysqli_query($conn, "SELECT f.* FROM fornecedor f");
         $selectCategoria = mysqli_query($conn, "SELECT c.* FROM categoria c");
@@ -163,7 +165,6 @@ if (isset($_GET['delete'])) {
           <?php }; ?>
         </select>
 
-        <input type="number" placeholder="Digite a quantidade" name="product_qtde" class="box" />
 
         <input type="file" accept="image/png, image/jpeg, image/jpg" name="product_image" class="box" />
 
