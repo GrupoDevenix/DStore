@@ -68,6 +68,7 @@ function enviar_email($conn, $email, $rash)
 {
     $destinatario = $email;
 
+    $to = $destinatario;
     $subject = "RECUPERAR SENHA";
     $headers = "MIME-Version: 1.0\r\n";
     $headers .= "Content-type: text/html; charset=UTF-8\r\n";
@@ -82,7 +83,7 @@ function enviar_email($conn, $email, $rash)
     ";
     $message .= "</head></html>";
 
-    if (mail($destinatario, $subject, $message, $headers)) {
+    if (mail($to, $subject, $headers, $message,)) {
         echo "<div class='alert-success> Os dados foram enviados para seu email. Acesse para recuperar'</div>";
     } else {
         echo "<div class='alert-danger'>Erro ao enviar</div>";
