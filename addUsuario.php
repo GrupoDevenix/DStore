@@ -58,7 +58,7 @@ if (isset($_POST['add_user'])) {
     <aside>
       <div class="top">
         <div class="logo">
-          <img class="logo-img" src="img/logo_transparent.png" alt="logo" />
+          <img class="logo-img" src="img/logo_transparent_alt.png" alt="logo" />
           <!-- <h2>D<span class="logo-color">STORE</span></h2> -->
         </div>
         <div class="close" id="close-btn">
@@ -85,7 +85,7 @@ if (isset($_POST['add_user'])) {
 
         <input type="text" placeholder="Digite o CPF" name="user_cpf" class="box" />
 
-        <input type="submit" class="btn" name="add_client" value="Adicionar Cliente" />
+        <input type="submit" class="btn" name="add_user" value="Cadastrar" />
 
         <a href="index.php">Voltar</a>
 
