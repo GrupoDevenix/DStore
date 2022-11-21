@@ -65,8 +65,10 @@ if (isset($_POST['update_product'])) {
     <aside>
       <div class="top">
         <div class="logo">
-          <!-- <img src="assets/images/logo.png" alt="logo" /> -->
-          <h2>D<span class="logo-color">STORE</span></h2>
+          <a href="dashboard.php">
+            <img src="img/logo_transparent_alt.png" alt="logo" />
+          </a>
+          <!-- <h2>D<span class="logo-color">STORE</span></h2> -->
         </div>
         <div class="close" id="close-btn">
           <span class="material-icons-sharp">close</span>

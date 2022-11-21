@@ -28,8 +28,10 @@
     <aside>
       <div class="top">
         <div class="logo">
-          <!-- <img src="assets/images/logo.png" alt="logo" /> -->
-          <h2>D<span class="logo-color">STORE</span></h2>
+          <a href="dashboard.php">
+            <img src="img/logo_transparent_alt.png" alt="logo" />
+          </a>
+          <!-- <h2>D<span class="logo-color">STORE</span></h2> -->
         </div>
         <div class="close" id="close-btn">
           <span class="material-icons-sharp">close</span>
@@ -123,7 +125,7 @@
               </div>
             </div>
           </div>
-          <small class="text-muted">Últimas 24 Horas</small>
+          <!-- <small class="text-muted">Últimas 24 Horas</small> -->
         </div>
 
         <div class="expenses">
@@ -142,7 +144,7 @@
               </div>
             </div>
           </div>
-          <small class="text-muted">Últimas 24 Horas</small>
+          <!-- <small class="text-muted">Últimas 24 Horas</small> -->
         </div>
 
         <div class="income">
@@ -161,7 +163,7 @@
               </div>
             </div>
           </div>
-          <small class="text-muted">Últimas 24 Horas</small>
+          <!-- <small class="text-muted">Últimas 24 Horas</small> -->
         </div>
       </div>
 

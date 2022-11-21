@@ -161,8 +161,9 @@ aside .logo{
 }
 
 aside .logo img{
-  width: 2rem;
-  height: 2rem;
+  width: 8rem;
+  height: 8rem;
+  margin-left: 2rem;
 }
 
 aside .logo .logo-color{
