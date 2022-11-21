@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 20-Nov-2022 às 16:38
+-- Tempo de geração: 21-Nov-2022 às 18:30
 -- Versão do servidor: 10.4.25-MariaDB
 -- versão do PHP: 8.1.10
 
@@ -85,7 +85,9 @@ CREATE TABLE `fornecedor` (
 INSERT INTO `fornecedor` (`idFornecedor`, `descricaoFornecedor`) VALUES
 (8, 'AMD'),
 (9, 'Intel'),
-(10, 'Nvidia');
+(10, 'Nvidia'),
+(11, 'Teste'),
+(12, 'Teste 2');
 
 -- --------------------------------------------------------
 
@@ -101,7 +103,7 @@ CREATE TABLE `produto` (
   `idFornecedor` int(255) NOT NULL,
   `idCategoria` int(255) NOT NULL,
   `qtdeProduto` int(255) NOT NULL,
-  `imagemProduto` varchar(255) NOT NULL
+  `imagemProduto` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -109,8 +111,10 @@ CREATE TABLE `produto` (
 --
 
 INSERT INTO `produto` (`idProduto`, `nomeProduto`, `descricaoProduto`, `precoProduto`, `idFornecedor`, `idCategoria`, `qtdeProduto`, `imagemProduto`) VALUES
-(33, 'GTX 1080', 'Placa de vídeo', '60', 10, 8, 5, 'food-4.png'),
-(34, 'RX 550', 'Placa 2', '900', 8, 5, 2, 'food-1.png');
+(34, 'RX 550', 'Placa 2', '900', 12, 8, 898, 'video-removebg-preview_1.png'),
+(35, 'Teclado', 'Teclado legal', '50', 11, 6, 1, 'tecladorazer.png'),
+(36, 'AMD Ryzen', 'Processador', '2500', 8, 8, 3, 'ryzen.png'),
+(37, 'Teste3', 'aaaa', '500', 12, 8, 500, 'food-4.png');
 
 -- --------------------------------------------------------
 
@@ -153,7 +157,23 @@ CREATE TABLE `venda` (
 --
 
 INSERT INTO `venda` (`idVenda`, `idProduto`, `idFuncionario`, `idCliente`, `valorTotal`, `data`) VALUES
-(1, 33, 1, 1, 1500, '2022-11-20');
+(2, 33, 1, 2, 5, '2022-11-20'),
+(3, 34, 1, 2, 5, '2022-11-22'),
+(7, 36, 1, 2, 50, '2022-11-21'),
+(8, 35, 1, 2, 60, '2022-11-21');
+
+--
+-- Acionadores `venda`
+--
+DELIMITER $$
+CREATE TRIGGER `baixaEstoque` AFTER INSERT ON `venda` FOR EACH ROW BEGIN
+   UPDATE produto p
+   INNER JOIN venda v ON v.idProduto = p.idProduto
+   SET p.qtdeProduto = p.qtdeProduto-1
+   WHERE v.idProduto = p.idProduto;
+END
+$$
+DELIMITER ;
 
 --
 -- Índices para tabelas despejadas
@@ -217,13 +237,13 @@ ALTER TABLE `cliente`
 -- AUTO_INCREMENT de tabela `fornecedor`
 --
 ALTER TABLE `fornecedor`
-  MODIFY `idFornecedor` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `idFornecedor` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de tabela `produto`
 --
 ALTER TABLE `produto`
-  MODIFY `idProduto` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `idProduto` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT de tabela `usuarios`
@@ -235,7 +255,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de tabela `venda`
 --
 ALTER TABLE `venda`
-  MODIFY `idVenda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idVenda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Restrições para despejos de tabelas
