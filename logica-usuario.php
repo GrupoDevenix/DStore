@@ -74,6 +74,7 @@ function add_dados_recover($conn, $email)
 
 function enviar_email($conn, $email, $rash)
 {
+    /*
     $mail = new PHPMailer(true);
 
     try {
@@ -87,9 +88,20 @@ function enviar_email($conn, $email, $rash)
         $mail->Port = 2525;
 
         $mail->setFrom('grupodevenix@gmail.com', 'Atendimento Devenix');
+        $mail->addAddress($email);
+
+        $mail->isHTML(true);
+        $mail->Subject = 'Recuperar Senha';
+        $mail->Body = ' Você solicitou recuperação, de senhe a sua nova senha é ' + $rash + ' obrigado por usar nosso sistema.
+         </br> <h5>Atenciosamente Grupo Devenix.</h5>';
+        $mail->AltBody = 'Você solicitou recuperação, de senhe a sua nova senha é ' + $rash + ' obrigado por usar nosso sistema Atenciosamente Grupo Devenix';
+        $mail->send();
+        echo 'E-mail Enviado com sucesso';
     } catch (Exception $e) {
-        echo 'Erro';
+        echo "Erro ao enviar o E-mail. Error PHPMailer:' {$mail->ErrorInfo}";
+        echo "Erro ao enviar o E-mail.;";
     }
+    */
 }
 /*
 function verifica_hash($conn, $rash)
