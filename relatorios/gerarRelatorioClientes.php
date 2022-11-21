@@ -1,7 +1,7 @@
 <?php
 
 // Carregar o Composer
-require '..lib/vendor/autoload.php';
+require '../vendor/autoload.php';
 
 // Incluir conexao com BD
 include '../config.php';

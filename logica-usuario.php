@@ -5,9 +5,9 @@ use PHPMailer\PHPmailer\PHPMailer;
 use PHPMailer\PHPmailer\SMTP;
 use PHPMailer\PHPmailer\Exception;
 
-require './lib/vendor/autoload.php';
+require './vendor/autoload.php';
 
-$email = new PHPMailer(true);
+
 
 session_start();
 ob_start();
@@ -74,27 +74,21 @@ function add_dados_recover($conn, $email)
 
 function enviar_email($conn, $email, $rash)
 {
-    $destinatario = $email;
+    $mail = new PHPMailer(true);
 
-    $to = $destinatario;
-    $subject = "RECUPERAR SENHA";
-    $headers = "MIME-Version: 1.0\r\n";
-    $headers .= "Content-type: text/html; charset=UTF-8\r\n";
-    $message = "<html><head>";
-    $message .= "
-    <h2>Você solicitou uma nova senha?</h2>
-    <h3>Se sim, aqui esta o link para recuperar a sua senha</h3>
-    <p>Para recuperar sua senha acesse esse link: <a href='" . "http://localhost/DStore/alterar.php" .
-        $rash . "'</a></p>
-    <h5>Se não foi você que solicitou ignore este email, porém alguém tentou alterar seus dados.</h5>
-    Atenciosamente, Grupo Devenix.
-    ";
-    $message .= "</head></html>";
+    try {
+        $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+        $mail->isSMTP();
+        $mail->Host = 'mtp.mailtrap.io';
+        $mail->SMTPAuth = true;
+        $mail->Username = '61e69faa35f6fe';
+        $mail->Password = '772a506af665df';
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port = 2525;
 
-    if (mail($to, $subject, $headers, $message,)) {
-        echo "<div class='alert-success> Os dados foram enviados para seu email. Acesse para recuperar'</div>";
-    } else {
-        echo "<div class='alert-danger'>Erro ao enviar</div>";
+        $mail->setFrom('grupodevenix@gmail.com', 'Atendimento Devenix');
+    } catch (Exception $e) {
+        echo 'Erro';
     }
 }
 /*
