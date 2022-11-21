@@ -118,9 +118,11 @@ if (isset($_GET['delete'])) {
           <h3>Categorias</h3>
         </a>
 
-        <a href="gerarRelatorio.php">
-          <span class="material-icons-sharp">report_gmailerrorred</span>
-          <h3>Relatórios</h3>
+        <a href="addUsuario.php">
+          <span class="material-icons-sharp">
+            person
+          </span>
+          <h3>Adicionar Usuarios</h3>
         </a>
 
         <!-- <a href="#">
