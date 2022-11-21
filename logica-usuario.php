@@ -1,6 +1,14 @@
 <?php
 include("banco-Usuario.php");
 
+use PHPMailer\PHPmailer\PHPMailer;
+use PHPMailer\PHPmailer\SMTP;
+use PHPMailer\PHPmailer\Exception;
+
+require './lib/vendor/autoload.php';
+
+$email = new PHPMailer(true);
+
 session_start();
 ob_start();
 
