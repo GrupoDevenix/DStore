@@ -14,13 +14,14 @@ if (isset($_POST['update_product'])) {
   $product_image_tmp_name = $_FILES['product_image']['tmp_name'];
   $product_image_folder = 'assets/images/' . $product_image;
 
-  if (empty($product_name) || empty($product_description) || empty($product_price) || empty($product_supplier) || empty($product_category) || empty($product_qtde) || empty($product_image)) {
+  if (empty($product_name) || empty($product_description) || empty($product_price) || empty($product_supplier) || empty($product_category) || empty($product_qtde)) {
     $message[] = 'Preencha todos os campos!';
   } else {
     $update = "UPDATE produto SET nomeProduto = '$product_name', descricaoProduto = '$product_description', precoProduto = '$product_price', idFornecedor = '$product_supplier', idCategoria = '$product_category', qtdeProduto = '$product_qtde', imagemProduto = '$product_image' WHERE idProduto = $id";
 
     $upload = mysqli_query($conn, $update);
     if ($upload) {
+      move_uploaded_file($product_image_tmp_name, $product_image_folder);
       $message[] = 'Produto atualizado com sucesso!';
     } else {
       $message[] = 'O produto não pôde ser atualizado!';
@@ -151,8 +152,8 @@ if (isset($_POST['update_product'])) {
           <input type="number" placeholder="Digite a quantidade" name="product_qtde" class="box" value="<?php echo $row['precoProduto'] ?>" />
 
           <?php
-          $selectFornecedor = mysqli_query($conn, "SELECT f.* FROM fornecedor f");
-          $selectCategoria = mysqli_query($conn, "SELECT c.* FROM categoria c");
+          $selectFornecedor = mysqli_query($conn, "SELECT f.* FROM fornecedor f ORDER BY f.descricaoFornecedor");
+          $selectCategoria = mysqli_query($conn, "SELECT c.* FROM categoria c GROUP BY c.descricaoCategoria");
           ?>
           <select name="product_supplier" class="box">
             <option>Selecione o fornecedor</option>

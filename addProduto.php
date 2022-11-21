@@ -212,10 +212,7 @@ if (isset($_GET['delete'])) {
         </div>
       </div>
     </div>
-
-
   </div>
-
 </body>
 
 </html>
