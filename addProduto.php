@@ -45,7 +45,7 @@ if (isset($_GET['delete'])) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!--CSS-->
-  <link rel="stylesheet" href="styles/crud.css" />
+  <link rel="stylesheet" href="styles/crudProduto.css" />
 
   <!--PHP-->
   <?php include("logica-usuario.php"); ?>
@@ -172,45 +172,45 @@ if (isset($_GET['delete'])) {
         <input type="file" accept="image/png, image/jpeg, image/jpg" name="product_image" class="box" />
 
         <input type="submit" class="btn" name="add_product" value="Adicionar Produto" />
+
+        <!-- <a href="relatorios/gerarRelatorioProdutos.php">Emitir relatório</a> -->
+
       </form>
-    </div>
+      <div class="product-container">
+        <div class="product-display">
+          <table class="product-display-table">
+            <thead>
+              <tr>
+                <th>Imagem</th>
+                <th>Nome</th>
+                <th>Preço</th>
+                <th>Quantidade</th>
+                <th>Fornecedor</th>
+                <th>Categoria</th>
+                <th>Ação</th>
+              </tr>
+            </thead>
 
-    <?php
-    $select = mysqli_query($conn, "SELECT *, descricaoFornecedor, descricaoCategoria FROM produto p INNER JOIN fornecedor f ON p.idFornecedor = f.idFornecedor INNER JOIN categoria c ON p.idCategoria = c.idCategoria");
-    ?>
-
-  </div>
-
-  <div class="product-container">
-    <div class="product-display">
-      <table class="product-display-table">
-        <thead>
-          <tr>
-            <th>Imagem</th>
-            <th>Nome</th>
-            <th>Preço</th>
-            <th>Quantidade</th>
-            <th>Fornecedor</th>
-            <th>Categoria</th>
-            <th>Ação</th>
-          </tr>
-        </thead>
-
-        <?php while ($row = mysqli_fetch_assoc($select)) { ?>
-          <tr>
-            <td><img src="assets/images/<?php echo $row['imagemProduto']; ?>" height="100" alt=""></td>
-            <td><?php echo $row['nomeProduto']; ?></td>
-            <td><?php echo $row['precoProduto']; ?></td>
-            <td><?php echo $row['qtdeProduto']; ?></td>
-            <td><?php echo $row['descricaoFornecedor']; ?></td>
-            <td><?php echo $row['descricaoCategoria']; ?></td>
-            <td>
-              <a href="editarProduto.php?edit=<?php echo $row['idProduto']; ?>" class="btn"> <i class="fas fa-edit"> Editar </i> </a>
-              <a href="addProduto.php?delete=<?php echo $row['idProduto']; ?>" class="btn"> <i class="fas fa-trash"> Excluir </i> </a>
-            </td>
-          </tr>
-        <?php }; ?>
-      </table>
+            <?php
+            $select = mysqli_query($conn, "SELECT *, descricaoFornecedor, descricaoCategoria FROM produto p INNER JOIN fornecedor f ON p.idFornecedor = f.idFornecedor INNER JOIN categoria c ON p.idCategoria = c.idCategoria");
+            ?>
+            <?php while ($row = mysqli_fetch_assoc($select)) { ?>
+              <tr>
+                <td><img src="assets/images/<?php echo $row['imagemProduto']; ?>" height="100" alt=""></td>
+                <td><?php echo $row['nomeProduto']; ?></td>
+                <td><?php echo $row['precoProduto']; ?></td>
+                <td><?php echo $row['qtdeProduto']; ?></td>
+                <td><?php echo $row['descricaoFornecedor']; ?></td>
+                <td><?php echo $row['descricaoCategoria']; ?></td>
+                <td>
+                  <a href="editarProduto.php?edit=<?php echo $row['idProduto']; ?>" class="btn"> <i class="fas fa-edit"> Editar </i> </a>
+                  <a href="addProduto.php?delete=<?php echo $row['idProduto']; ?>" class="btn"> <i class="fas fa-trash"> Excluir </i> </a>
+                </td>
+              </tr>
+            <?php }; ?>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
 </body>

@@ -48,7 +48,7 @@
 
 html{
   font-size: 14px;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
 }
 
 body{
@@ -208,7 +208,8 @@ aside .sidebar .message-count{
   background: var(--color-white);
 }
 
-.btn{
+.btn,
+form a{
   display: block;
   width: 100%;
   cursor: pointer;
@@ -223,7 +224,8 @@ aside .sidebar .message-count{
   transition: all 0.3s ease;
 }
 
-.btn:hover{
+.btn:hover,
+form a:hover{
   background: black;
 }
 
