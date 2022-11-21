@@ -75,7 +75,7 @@ function enviar_email($conn, $email, $rash)
     $message .= "
     <h2>Você solicitou uma nova senha?</h2>
     <h3>Se sim, aqui esta o link para recuperar a sua senha</h3>
-    <p>Para recuperar sua senha acesse esse link: <a href='" . "https://www.youtube.com/" . "'</a></p>
+    <p>Para recuperar sua senha acesse esse link: <a href='" . "http://localhost/DStore/alterar.php" . "'</a></p>
     <h5>Se não foi você que solicitou ignore este email, porém alguém tentou alterar seus dados.</h5>
     Atenciosamente, Grupo Devenix.
     ";
