@@ -1,13 +1,12 @@
 <?php
 include("banco-Usuario.php");
+/*
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
 
-use PHPMailer\PHPmailer\PHPMailer;
-use PHPMailer\PHPmailer\SMTP;
-use PHPMailer\PHPmailer\Exception;
-
-require './vendor/autoload.php';
-
-
+require 'vendor/autoload.php';
+*/
 
 session_start();
 ob_start();
