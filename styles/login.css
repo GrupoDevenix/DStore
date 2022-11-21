@@ -141,6 +141,16 @@ form input[type="submit"]:hover {
   transition: all 0.3s ease;
 }
 
+.voltar {
+  margin-top: 3rem;
+  font-weight: bold;
+  font-size: 15px;
+  color: #fff;
+  border: 3px solid orangered;
+  background-color: orangered;
+  margin-left: 6rem;
+}
+
 .alert-danger {
   color: rgb(247, 6, 6);
   text-shadow: 2px 2px #000000;

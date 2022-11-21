@@ -38,7 +38,6 @@
     <?php } else { ?>
       <div class="logo">
         <img src="img/logo_transparent.png">
-        <!--<h1 class=" logo" style="color:aliceblue">DStore</h1>-->
       </div>
       <?php if (isset($_SESSION["danger"])) { ?>
         <p class="alert-danger"> <?= $_SESSION["danger"] ?></a>
@@ -52,19 +51,19 @@
 
         <form action="login.php" method="post">
           <div class="input-field">
-            <input type="email" name="email" id="username" placeholder="Email" />
+            <input type="email" name="email" id="username" placeholder="Email" required />
             <div class="underline"></div>
           </div>
 
           <div class="input-field">
-            <input type="password" name="senha" id="password" placeholder="Senha" />
+            <input type="password" name="senha" id="password" placeholder="Senha" required />
             <div class="underline"></div>
           </div>
 
           <input class="botao" type="submit" value="Continue" />
         </form>
         <br>
-        <a href="#" class="linha"><span class="es">Esqueci minha senha</span></a>
+        <a href="recuperacao_senha.php" class="linha"><span class="es">Esqueci minha senha</span></a>
   </main>
 <?php } ?>
 </body>
