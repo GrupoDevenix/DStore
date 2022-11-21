@@ -75,18 +75,20 @@ function enviar_email($conn, $email, $rash)
     $message .= "
     <h2>Você solicitou uma nova senha?</h2>
     <h3>Se sim, aqui esta o link para recuperar a sua senha</h3>
-    <p>Para recuperar sua senha acesse esse link: <a href='" . "http://localhost/DStore/alterar.php" . "'</a></p>
+    <p>Para recuperar sua senha acesse esse link: <a href='" . "http://localhost/DStore/alterar.php" .
+        $rash . "'</a></p>
     <h5>Se não foi você que solicitou ignore este email, porém alguém tentou alterar seus dados.</h5>
     Atenciosamente, Grupo Devenix.
     ";
     $message .= "</head></html>";
 
     if (mail($destinatario, $subject, $message, $headers)) {
-        echo "<div class='alert alert-success> Os dados foram enviados para seu email. Acesse para recuperar'</div>";
+        echo "<div class='alert-success> Os dados foram enviados para seu email. Acesse para recuperar'</div>";
     } else {
-        echo "<div class='alert alert-danger'>Erro ao enviar</div>";
+        echo "<div class='alert-danger'>Erro ao enviar</div>";
     }
 }
+/*
 function verifica_hash($conn, $rash)
 {
     $sql = $conn->prepare("SELECT * FROM recovery_solicitation WHERE rash = ? AND status = 0");
@@ -98,6 +100,7 @@ function verifica_hash($conn, $rash)
     if ($total > 0) {
         echo "Pode efetuar alterações ";
     } else {
-        echo "<div class='alert alert-danger'>Rash invalido.</div>";
+        echo "<div class='alert alert-danger'>Rash invalido.</div>".
     }
 }
+*/
