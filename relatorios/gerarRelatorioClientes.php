@@ -14,11 +14,13 @@ $dados = "<!DOCTYPE html>";
 $dados .= "<html lang='pt-br'>";
 $dados .= "<head>";
 $dados .= "<meta charset='UTF-8'>";
-$dados .= "<link rel='stylesheet' href='styles/crud.css'";
+$dados .= "<link rel='stylesheet' href='styles/crudCliente.css' />";
+$dados .= "<link href='https://fonts.googleapis.com/icon?family=Material+Icons+Sharp' rel='stylesheet' />";
+$dados .= "<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css' />";
 $dados .= "<title>Relatório de Clientes</title>";
 $dados .= "</head>";
 $dados .= "<body>";
-$dados .= "<h1>Listar os Clientes</h1>";
+$dados .= "<h1>Relatório de Clientes</h1>";
 
 // Ler os registros retornado do BD
 while ($row_cliente = mysqli_fetch_assoc($query_clientes)) {
@@ -28,7 +30,7 @@ while ($row_cliente = mysqli_fetch_assoc($query_clientes)) {
   $dados .= "Email: $emailCliente <br>";
   $dados .= "Nome: $nomeCliente <br>";
   $dados .= "CEP: $cep <br>";
-  $dados .= "Endereço: $endereco <br>";
+  $dados .= "Endereço: $logradouro <br>";
   $dados .= "Número: $numero <br>";
   $dados .= "Bairro: $bairro <br>";
   $dados .= "Cidade: $cidade <br>";
@@ -57,5 +59,7 @@ $dompdf->setPaper('A4', 'portrait');
 // Renderizar o HTML como PDF
 $dompdf->render();
 
+ob_end_clean();
+
 // Gerar o PDF
-$dompdf->stream();
+$dompdf->stream("Relatório de Clientes");

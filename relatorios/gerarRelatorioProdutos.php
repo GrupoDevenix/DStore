@@ -7,18 +7,18 @@ require '../vendor/autoload.php';
 include '../config.php';
 
 // QUERY para recuperar os registros do banco de dados
-$query_produtos = mysqli_query($conn, "SELECT p.*, descricaoFornecedor, descricaoCategoria FROM produto p INNER JOIN fornecedor f ON p.idFornecedor = f.idFornecedor INNER JOIN categoria c ON p.idCategoria = c.idCategoria");
+$query_produtos = mysqli_query($conn, "SELECT *, descricaoFornecedor, descricaoCategoria FROM produto p INNER JOIN fornecedor f ON p.idFornecedor = f.idFornecedor INNER JOIN categoria c ON p.idCategoria = c.idCategoria");
 
 // Informacoes para o PDF
 $dados = "<!DOCTYPE html>";
 $dados .= "<html lang='pt-br'>";
 $dados .= "<head>";
 $dados .= "<meta charset='UTF-8'>";
-$dados .= "<link rel='stylesheet' href='styles/crud.css'";
+$dados .= "<link rel='stylesheet' href='styles/crudProduto.css'";
 $dados .= "<title>Relatório de Produtos</title>";
 $dados .= "</head>";
 $dados .= "<body>";
-$dados .= "<h1>Listar os Produtos</h1>";
+$dados .= "<h1>Lista de Produtos</h1>";
 
 // Ler os registros retornado do BD
 while ($row_produto = mysqli_fetch_assoc($query_produtos)) {
@@ -31,11 +31,9 @@ while ($row_produto = mysqli_fetch_assoc($query_produtos)) {
   $dados .= "Quantidade: $qtdeProduto <br>";
   $dados .= "Fornecedor: $fornecedor <br>";
   $dados .= "Categoria: $categoria <br>";
-  $dados .= "Imagem: $imagem <br>";
   $dados .= "<hr>";
 }
 
-// $dados .= "<img src='http://localhost/celke/imagens/celke.jpg'><br>";
 $dados .= "</body>";
 
 
@@ -57,5 +55,7 @@ $dompdf->setPaper('A4', 'portrait');
 // Renderizar o HTML como PDF
 $dompdf->render();
 
+ob_end_clean();
+
 // Gerar o PDF
-$dompdf->stream();
+$dompdf->stream("Relatório de produtos");

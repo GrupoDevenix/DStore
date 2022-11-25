@@ -177,7 +177,7 @@ if (isset($_GET['delete'])) {
 
         <input type="submit" class="btn" name="add_product" value="Adicionar Produto" />
 
-        <!-- <a href="relatorios/gerarRelatorioProdutos.php">Emitir relatório</a> -->
+        <a href="relatorios/gerarRelatorioProdutos.php">Emitir relatório</a>
 
       </form>
       <div class="product-container">

@@ -1,7 +1,6 @@
 <?php
 @include 'config.php';
 
-
 if (isset($_POST['add_client'])) {
   $client_email = $_POST['client_email'];
   $client_name = $_POST['client_name'];
@@ -160,7 +159,7 @@ if (isset($_GET['delete'])) {
 
         <input type="submit" class="btn" name="add_client" value="Adicionar Cliente" />
 
-        <!-- <a href="relatorios/gerarRelatorioClientes.php">Emitir relatório</a> -->
+        <a href="relatorios/gerarRelatorioClientes.php">Emitir relatório</a>
       </form>
 
       <?php

@@ -18,7 +18,7 @@ $dados .= "<link rel='stylesheet' href='styles/crud.css'";
 $dados .= "<title>Relatório de Vendas</title>";
 $dados .= "</head>";
 $dados .= "<body>";
-$dados .= "<h1>Listar as Vendas</h1>";
+$dados .= "<h1>Lista de Vendas</h1>";
 
 // Ler os registros retornado do BD
 while ($row_venda = mysqli_fetch_assoc($query_vendas)) {
@@ -54,6 +54,8 @@ $dompdf->setPaper('A4', 'portrait');
 
 // Renderizar o HTML como PDF
 $dompdf->render();
+
+ob_end_clean();
 
 // Gerar o PDF
 $dompdf->stream();
